@@ -2,19 +2,16 @@
 pragma solidity ^0.8.0;
 
 import {ECDSA} from "../lib/ECDSA.sol";
-import {Ownable} from "../Ownable_CUSTOM1.sol";
 import {IERC20} from "../lib/IERC20.sol";
 
-contract TransferFunds is Ownable {
+contract TransferFunds {
     using ECDSA for *;
 
-    address private AddressB;
+    address private hashOfAddressB;
     string public messageToSign;
 
-    constructor(address _AddressB, string memory _messageToSign)
-        Ownable(_AddressB)
-    {
-        AddressB = _AddressB;
+    constructor(bytes32 memory _hashOfAddressB, string memory _messageToSign) {
+        _hashOfAddressB = hashOfAddressB;
         messageToSign = _messageToSign;
     }
 
@@ -32,7 +29,7 @@ contract TransferFunds is Ownable {
         returns (bool success)
     {
         require(amount <= contractTokenBalance(_tokenAddress), "INVALID_AMOUNT");
-        require(recover() == AddressB, "INVALID_USER");
+        require(abi.encodePacked(recover()) == hashOfAddressB, "INVALID_USER");
         IERC20(_tokenAddress).transfer(msg.sender, amount);
     }
 }
