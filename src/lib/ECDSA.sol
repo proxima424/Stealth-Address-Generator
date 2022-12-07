@@ -47,7 +47,9 @@ library ECDSA {
                 if iszero(gt(mload(0x60), _MALLEABILITY_THRESHOLD)) {
                     mstore(0x00, hash)
                     // Compute `v` and store it in the scratch space.
-                    mstore(0x20, byte(0, calldataload(add(signature.offset, 0x40))))
+                    mstore(
+                        0x20, byte(0, calldataload(add(signature.offset, 0x40)))
+                    )
                     pop(
                         staticcall(
                             gas(), // Amount of gas left for the transaction.
@@ -85,7 +87,11 @@ library ECDSA {
     /// The `result` will be the zero address upon recovery failure.
     /// As such, it is extremely important to ensure that the address which
     /// the `result` is compared against is never zero.
-    function recover(bytes32 hash, bytes32 r, bytes32 vs) internal view returns (address result) {
+    function recover(bytes32 hash, bytes32 r, bytes32 vs)
+        internal
+        view
+        returns (address result)
+    {
         uint8 v;
         bytes32 s;
         /// @solidity memory-safe-assembly
@@ -147,7 +153,11 @@ library ECDSA {
     /// This produces a hash corresponding to the one signed with the
     /// [`eth_sign`](https://eth.wiki/json-rpc/API#eth_sign)
     /// JSON-RPC method as part of EIP-191.
-    function toEthSignedMessageHash(bytes32 hash) internal pure returns (bytes32 result) {
+    function toEthSignedMessageHash(bytes32 hash)
+        internal
+        pure
+        returns (bytes32 result)
+    {
         /// @solidity memory-safe-assembly
         assembly {
             // Store into scratch space for keccak256.
@@ -162,7 +172,11 @@ library ECDSA {
     /// This produces a hash corresponding to the one signed with the
     /// [`eth_sign`](https://eth.wiki/json-rpc/API#eth_sign)
     /// JSON-RPC method as part of EIP-191.
-    function toEthSignedMessageHash(bytes memory s) internal pure returns (bytes32 result) {
+    function toEthSignedMessageHash(bytes memory s)
+        internal
+        pure
+        returns (bytes32 result)
+    {
         assembly {
             // We need at most 128 bytes for Ethereum signed message header.
             // The max length of the ASCII reprenstation of a uint256 is 78 bytes.
@@ -192,7 +206,10 @@ library ECDSA {
             }
 
             // Copy the header over to the memory.
-            mstore(sub(ptr, 0x20), "\x00\x00\x00\x00\x00\x00\x19Ethereum Signed Message:\n")
+            mstore(
+                sub(ptr, 0x20),
+                "\x00\x00\x00\x00\x00\x00\x19Ethereum Signed Message:\n"
+            )
             // Compute the keccak256 of the memory.
             result := keccak256(sub(ptr, 0x1a), sub(end, sub(ptr, 0x1a)))
 
