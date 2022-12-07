@@ -1,5 +1,7 @@
 # Stealth-Address-Generator
 Library written in solidity to quickly spin up stealth-addresses for secured transmissions between 2 parties.
+StealthAddressV1 :: Generating Addresses using CREATE2.
+StealthAddressV2 :: Generating Addresses using a Shared Secret Key
 
 ### Roadmap
 - [ ] Write the CREATE2 function with the focus on visibility and zero constructor args.
