@@ -4,12 +4,12 @@ Library written in solidity to quickly spin up stealth-addresses for secured tra
 ### Roadmap
 - [ ] Write the CREATE2 function with the focus on visibility and zero constructor args.
 - [ ] Write the CREATE2 function with the focus on visibility and two constructor args.
-- [ ] Write a modified Ownable.sol to provide admin access to address B, not to the msg.sender(address A)
+- [X] Write a modified Ownable.sol to provide admin access to address B, not to the msg.sender(address A)
 - [ ] Write a modified Ownable.sol to provide shared access to two addresses ( A and B )
 - [ ] Write the bytecode loader function
-- [ ] Write a template for airdropping NFTs ( ownership to the other address )
-- [ ] Write a template for airdropping NFTs ( shared ownership between A and B. Multisignature transfer )
-- [ ] Write a template for airdropping NFTs ( )
+- [ ] Write a template for airdropping NFTs ( ownership to the other address ) (inherit Ownable.sol)
+- [ ] Write a template for airdropping NFTs ( shared ownership between A and B. Multisignature transfer ) (inherit Ownable.sol)
+- [ ] Write a template for Address B being able to withdraw funds put in contract C by Address A
 
 Example Use Cases given Address A and Address B:
 
