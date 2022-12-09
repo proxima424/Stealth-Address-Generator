@@ -4,7 +4,7 @@ StealthAddressV1 :: Generating Addresses using CREATE2 and enabling anonymity th
 StealthAddressV2 :: Generating Addresses using a Shared Secret Key [ `YET TO BE DONE` ]
 
 
-## Stealth-Address-V1
+## Stealth-Address-V1 (Write All contracts then integrate using wagmi)
 
 1) `TransferFundsERC20.sol` </br>
 (QuiteBasicButAGoodStartStill) </br>
@@ -24,11 +24,12 @@ If this returns true, it then `transfers` the required amount. </br>
 
 - Hide `frequent transactiveness` of A and B
 - Minimize `interaction/linkage` between A and B
-- Want a `trusted intermediary code` between two addresses to achieve common goal
+- Want a `trusted intermediary code` between two addresses to achieve common goal </br>
 
 
 
 ### Roadmap
+
 - [X] Write the CREATE2 function with the focus on visibility and zero constructor args.
 - [X] Write the CREATE2 function with the focus on visibility and two constructor args.
 - [X] Write a modified Ownable.sol to provide admin access to address B, not to the msg.sender(address A)
