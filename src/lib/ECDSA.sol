@@ -31,7 +31,7 @@ library ECDSA {
     /// As such, it is extremely important to ensure that the address which
     /// the `result` is compared against is never zero.
     function recover(bytes32 hash, bytes calldata signature)
-        internal
+        external
         view
         returns (address result)
     {
