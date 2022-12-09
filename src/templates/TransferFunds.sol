@@ -28,7 +28,7 @@ contract TransferFunds {
         address _tokenAddress,
         uint256 amount,
         bytes32 _Ethhash,
-        bytes32 _signature
+        bytes memory _signature
     )
         public
         returns (bool success)
@@ -39,7 +39,7 @@ contract TransferFunds {
                 == hashOfAddressB,
             "INVALID_SIGNATURE"
         );
-
         IERC20(_tokenAddress).transfer(msg.sender, amount);
+        return true;
     }
 }
