@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {ECDSA} from "../lib/ECDSA.sol";
 import {IERC20} from "../lib/IERC20.sol";
 
-contract TransferFunds {
+contract TransferFundsERC20 {
     using ECDSA for *;
 
     bytes32 private hashOfAddressB;
