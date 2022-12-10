@@ -42,4 +42,6 @@ contract TransferFundsERC20 {
         IERC20(_tokenAddress).transfer(msg.sender, amount);
         return true;
     }
+    
+    receive() external payable {}
 }
