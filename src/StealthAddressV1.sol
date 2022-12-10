@@ -46,7 +46,7 @@ contract StealthAddressV1 {
             abi.encode(keccak256(abi.encode(_addressB)), _messageToSignETH)
         );
         address deployedContract;
-        assembly {
+        assembly{
             deployedContract :=
                 create2(0, add(initCode, 0x20), mload(initCode), _salt)
             if iszero(extcodesize(deployedContract)) { revert(0, 0) }
