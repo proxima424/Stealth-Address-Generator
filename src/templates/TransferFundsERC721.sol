@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {ECDSA} from "../lib/ECDSA.sol";
 // import {IERC20} from "../lib/IERC721.sol";
-import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+import {IERC721} from "../lib/IERC721.sol";
 
 contract TransferFundsERC721{
     using ECDSA for *;
@@ -16,17 +16,17 @@ contract TransferFundsERC721{
         messageToSign = _messageToSign;
     }
 
-    function contractTokenBalance(address _tokenId)
+    function contractTokenBalance(address _nftContract)
         public
         view
         returns (uint256)
     {
-        require(_tokenId != address(0), "INVALID_ADDRESS");
-        return IERC721(_tokenId).balanceOf(address(this));
+        require(_nftContract != address(0), "INVALID_ADDRESS");
+        return IERC721(_nftContract).balanceOf(address(this));
     }
 
     function withdraw(
-        uint _tokenId,
+        uint256 _tokenId,
         bytes32 _Ethhash,
         bytes memory _signature,
         address _nftContract
@@ -43,6 +43,6 @@ contract TransferFundsERC721{
         IERC721(_nftContract).safeTransferFrom(address(this), msg.sender, _tokenId);
         return true;
     }
-    
+
     receive() external payable {}
 }
