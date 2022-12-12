@@ -14,11 +14,6 @@ contract StealthAddressV1Test is Test {
     }
 
     function testdeployStealthV1ERC20() public {
-        
-
-
-        address mock = UFC.deployStealthV1ERC20(alice, "I want the funds", 0);
-
 
 
     }
