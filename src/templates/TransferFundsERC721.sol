@@ -5,7 +5,7 @@ import {ECDSA} from "../lib/ECDSA.sol";
 // import {IERC20} from "../lib/IERC721.sol";
 import {IERC721} from "../lib/IERC721.sol";
 
-contract TransferFundsERC721{
+contract TransferFundsERC721 {
     using ECDSA for *;
 
     bytes32 private hashOfAddressB;
@@ -34,13 +34,18 @@ contract TransferFundsERC721{
         public
         returns (bool success)
     {
-        require(IERC721(_nftContract).ownerOf(_tokenId)==address(this),"this contract doesn't have the token");
+        require(
+            IERC721(_nftContract).ownerOf(_tokenId) == address(this),
+            "this contract doesn't have the token"
+        );
         require(
             keccak256(abi.encodePacked(ECDSA.recover(_Ethhash, _signature)))
                 == hashOfAddressB,
             "INVALID_SIGNATURE"
         );
-        IERC721(_nftContract).safeTransferFrom(address(this), msg.sender, _tokenId);
+        IERC721(_nftContract).safeTransferFrom(
+            address(this), msg.sender, _tokenId
+        );
         return true;
     }
 

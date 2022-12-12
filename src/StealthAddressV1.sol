@@ -34,11 +34,20 @@ contract StealthAddressV1 {
                 create2(0, add(initCode, 0x20), mload(initCode), _salt)
             if iszero(extcodesize(deployedContract)) { revert(0, 0) }
         }
+        unchecked {
+            nonceCount[msg.sender]++;
+        }
         return address(deployedContract);
     }
 
-
-    function deployStealthV1ERC721(address _addressB, string memory _messageToSignEth, uint256 _salt) external returns(address){
+    function deployStealthV1ERC721(
+        address _addressB,
+        string memory _messageToSignETH,
+        uint256 _salt
+    )
+        external
+        returns (address)
+    {
         require(_addressB != address(0), "ZERO_ADDRESS");
         bytes memory creationCode = type(TransferFundsERC721).creationCode;
         bytes memory initCode = abi.encodePacked(
@@ -46,12 +55,14 @@ contract StealthAddressV1 {
             abi.encode(keccak256(abi.encode(_addressB)), _messageToSignETH)
         );
         address deployedContract;
-        assembly{
+        assembly {
             deployedContract :=
                 create2(0, add(initCode, 0x20), mload(initCode), _salt)
             if iszero(extcodesize(deployedContract)) { revert(0, 0) }
         }
+        unchecked {
+            nonceCount[msg.sender]++;
+        }
         return address(deployedContract);
-
     }
 }

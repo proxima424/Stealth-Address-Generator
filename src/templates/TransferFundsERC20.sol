@@ -7,7 +7,7 @@ import {IERC20} from "../lib/IERC20.sol";
 contract TransferFundsERC20 {
     using ECDSA for *;
 
-    bytes32 private hashOfAddressB;
+    bytes32 public hashOfAddressB;
     string public messageToSign;
 
     constructor(bytes32 _hashOfAddressB, string memory _messageToSign) {
@@ -42,6 +42,6 @@ contract TransferFundsERC20 {
         IERC20(_tokenAddress).transfer(msg.sender, amount);
         return true;
     }
-    
-    receive() external payable {}
+
+
 }
