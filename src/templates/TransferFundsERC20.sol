@@ -11,8 +11,16 @@ contract TransferFundsERC20 {
     string public messageToSign;
 
     constructor(bytes32 _hashOfAddressB, string memory _messageToSign) {
-        _hashOfAddressB = hashOfAddressB;
+        hashOfAddressB = _hashOfAddressB;
         messageToSign = _messageToSign;
+    }
+
+    function getHashOfAddressB() public view returns (bytes32 ) {
+        return hashOfAddressB;
+    }
+
+    function getMessageToSign() public view returns (string memory) {
+        return messageToSign;
     }
 
     function contractTokenBalance(address _tokenAddress)
@@ -22,6 +30,14 @@ contract TransferFundsERC20 {
     {
         require(_tokenAddress != address(0), "INVALID_ADDRESS");
         return IERC20(_tokenAddress).balanceOf(address(this));
+    }
+
+    function recoverAdrFromSignature (bytes32 _EthHash, bytes memory _signature)
+        public
+        view
+        returns (address)
+    {
+        return ECDSA.recover(_EthHash, _signature);
     }
 
     function withdraw(
@@ -35,13 +51,11 @@ contract TransferFundsERC20 {
     {
         require(amount <= contractTokenBalance(_tokenAddress), "INVALID_AMOUNT");
         require(
-            keccak256(abi.encodePacked(ECDSA.recover(_Ethhash, _signature)))
+            keccak256(abi.encodePacked(recoverAdrFromSignature(_Ethhash, _signature)))
                 == hashOfAddressB,
             "INVALID_SIGNATURE"
         );
         IERC20(_tokenAddress).transfer(msg.sender, amount);
         return true;
     }
-
-
 }
