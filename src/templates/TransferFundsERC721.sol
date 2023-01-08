@@ -2,7 +2,6 @@
 pragma solidity ^0.8.0;
 
 import {ECDSA} from "../lib/ECDSA.sol";
-// import {IERC20} from "../lib/IERC721.sol";
 import {IERC721} from "../lib/IERC721.sol";
 
 contract TransferFundsERC721 {
